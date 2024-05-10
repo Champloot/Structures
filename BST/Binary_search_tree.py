@@ -38,13 +38,13 @@ class Tree:
             self.right.insert(data)
             return
         return "Error"
-
+    # Максимальный элемент дерева
     def getMax(self):
         if self.right.right == None:
             return self.value
         else:
             return self.right.getMax()
-
+    # Минимальный элемент дерева
     def getMin(self):
         if self.left == None:
             return self.value
@@ -69,30 +69,38 @@ class Tree:
         elif data >= self.value:
             return self.right.search(data)
         return "Error"
-
+    # Удаление узла
     def delete(self, data):
+        # Если нечего удалять
         if self.isempty():
             return
+        # Если удаляемый < данного
         elif data < self.value:
             self.left.delete(data)
             return
+        # Если удаляемый > данного
         elif data > self.value:
             self.right.delete(data)
             return
+        # Если удаляемый узел - данный
         elif data == self.value:
+            # Если узел - лист
             if self.isleaf():
                 self.value = None
                 self.left = None
                 self.right = None
                 return
+            # Если нет левого ребенка
             elif self.left.isempty():
                 self.value = self.right.value
                 self.left = self.right.left
                 self.right = self.right.right
+            # Если нет правого ребенка
             elif self.right.isempty():
                 self.value = self.left.value
                 self.left = self.left.left
                 self.right = self.left.right
+            # Если есть оба ребенка
             else:
                 self.value = self.left.getMax()
                 self.left.delete(self.value)
